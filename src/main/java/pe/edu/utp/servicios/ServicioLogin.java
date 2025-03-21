@@ -1,15 +1,16 @@
-package utp.edu.pe.servicios;
+package pe.edu.utp.servicios;
 
-import utp.edu.pe.objetos.Usuario;
-import utp.edu.pe.seguridad.ErrorLog;
+import pe.edu.utp.objetos.Usuario;
+import pe.edu.utp.seguridad.ErrorLog;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ServicioLogin {
     public static boolean validateCredentials(String username, String password, ErrorLog errorLog) {
-
         // Cargar la lista de usuarios desde el archivo usando el método de carga de ServicioCargaDatos
-        List<Usuario> usuarios = ServicioCargaDatos.cargarUsuarios(errorLog);
+        List<Usuario> usuarios;
+        usuarios = ServicioCargaDatos.cargarUsuarios(errorLog);
 
         // Validar las credenciales contra la lista de usuarios cargados
         for (Usuario usuario : usuarios) {
@@ -17,6 +18,9 @@ public class ServicioLogin {
                 return true; // Las credenciales son válidas
             }
         }
-        return false; // Las credenciales no son válidas o la lista de usuarios está vacía
+
+        // Si llegamos aquí, las credenciales no son válidas
+        errorLog.log("Credenciales incorrectas para usuario: " + username, ErrorLog.Level.INFO, "ServicioLogin");
+        return false;
     }
 }

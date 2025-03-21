@@ -1,57 +1,62 @@
-package utp.edu.pe.utilidades;
+package pe.edu.utp.utilidades;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+
+import java.io.IOException;
 
 public class TextUTP {
 
     // Enumeración para los sistemas operativos soportados
     public enum OS {WINDOWS, LINUX};
 
-    // Método para leer todo el contenido de un archivo como una cadena
-    public static String read(String filename) throws IOException {
+    // Método para leer todo el contenido de un archivo como una cadena con una codificación específica
+    public static String read(String filename, Charset charset) throws IOException {
         try (BufferedInputStream in = new BufferedInputStream(
                 new FileInputStream(filename))) {
-            String data = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-            return data;
+            byte[] bytes = in.readAllBytes();
+            return new String(bytes, charset);
         } catch (IOException e) {
             throw e;
         }
     }
 
-    // Método para leer todas las líneas de un archivo como una lista de cadenas
-    public static List<String> readlines(String filename, OS os) throws IOException {
-        String delim = (os == OS.WINDOWS) ? "\r\n" : "\n";
-        String data = read(filename);
-        List<String> res = new LinkedList<>();
-        if (data.length() > 0) {
-            res = Arrays.asList(data.split(delim));
+    // Método para leer todas las líneas de un archivo como una lista de cadenas con una codificación específica
+    public static List<String> readlines(String filename, OS os, Charset charset) throws IOException {
+        List<String> lines = new ArrayList<>();
+        try {
+            lines = Files.readAllLines(Paths.get(filename), charset);
+        } catch (IOException e) {
+            throw e;
         }
-        return res;
+        return lines;
     }
 
-    // Sobrecarga del método readlines para usar OS.LINUX por defecto
+    // Sobrecarga del método readlines para usar OS.LINUX y UTF-8 por defecto
     public static List<String> readlines(String filename) throws IOException {
-        return readlines(filename, OS.LINUX);
+        return readlines(filename, OS.LINUX, StandardCharsets.UTF_8);
     }
 
-    // Método para leer todas las líneas de un archivo como un arreglo de cadenas
-    public static String[] readlinesAsArray(String filename, OS os) throws IOException {
+    // Sobrecarga del método readlines para usar OS.LINUX y una codificación específica
+    public static List<String> readlines(String filename, Charset charset) throws IOException {
+        return readlines(filename, OS.LINUX, charset);
+    }
+
+    // Método para leer todas las líneas de un archivo como un arreglo de cadenas con una codificación específica
+    public static String[] readlinesAsArray(String filename, OS os, Charset charset) throws IOException {
+        String data = read(filename, charset);
         String delim = (os == OS.WINDOWS) ? "\r\n" : "\n";
-        String data = read(filename);
-        String[] res = new String[]{};
-        if (data.length() > 0) {
-            res = data.split(delim);
-        }
-        return res;
+        return data.split(delim);
     }
 
-    // Sobrecarga del método readlinesAsArray para usar OS.LINUX por defecto
+    // Sobrecarga del método readlinesAsArray para usar OS.LINUX y UTF-8 por defecto
     public static String[] readlinesAsArray(String filename) throws IOException {
-        return readlinesAsArray(filename, OS.LINUX);
+        return readlinesAsArray(filename, OS.LINUX, StandardCharsets.UTF_8);
     }
 
     // Método privado para escribir datos de tipo byte en un archivo
@@ -116,5 +121,4 @@ public class TextUTP {
     public static void append(List<String> data, String filename) throws IOException {
         append(data, filename, true);
     }
-
 }

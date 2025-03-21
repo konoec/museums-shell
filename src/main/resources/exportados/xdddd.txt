@@ -1,0 +1,15 @@
+Reporte de Top 10 Museos Más Visitados
+-------------------------------------------------------------------------------------------------------------------------
+| Museo                                                                  | Total Visitas   | Fecha Más Visitada   |
+-------------------------------------------------------------------------------------------------------------------------
+| Museo Tumbas Reales de Sip?n                                           | 62670           | julio 2023           |
+| Museo de Sitio de Chan Chan                                            | 36037           | febrero 2023         |
+| Museo Nacional de Arqueolog?a, Antropolog?a e Historia del Per?        | 33155           | febrero 2023         |
+| Museo de Sitio T?cume                                                  | 29302           | febrero 2023         |
+| Museo Arqueol?gico y Etnogr?fico del Conjunto Monumental Bel?n         | 27829           | agosto 2023          |
+| Museo Nacional de la Cultura Peruana                                   | 24533           | junio 2024           |
+| Museo Nacional de Sic?n                                                | 22807           | septiembre 2023      |
+| Museo Arqueol?gico Nacional Br?ning                                    | 22804           | febrero 2023         |
+| Museo de Sitio Pachacamac                                              | 21710           | agosto 2023          |
+| Lugar de la Memoria, la tolerancia y la inclusi?n social               | 18897           | febrero 2023         |
+-------------------------------------------------------------------------------------------------------------------------
